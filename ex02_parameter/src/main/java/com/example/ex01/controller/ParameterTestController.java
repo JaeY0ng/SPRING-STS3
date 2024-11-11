@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ex01.domain.dto.PersonDto;
 
@@ -64,107 +65,123 @@ public class ParameterTestController {
 	}
 
 	@RequestMapping(value = "/p08/{name}/{age}/{addr}", method = RequestMethod.GET)
-	public void p08(
-			@PathVariable("name") String name,
-			@PathVariable("age") int age,
-			@PathVariable("addr") String addr
-			) {
-		log.info("GET /param/p08..." + name + " " + age + " " + addr );
+	public void p08(@PathVariable("name") String name, @PathVariable("age") int age,
+			@PathVariable("addr") String addr) {
+		log.info("GET /param/p08..." + name + " " + age + " " + addr);
 	}
-	
+
 	@RequestMapping(value = "/p09/{name}/{age}/{addr}", method = RequestMethod.GET)
 	public void p09(@ModelAttribute PersonDto dto) {
 		log.info("GET /param/p09..." + dto);
 	}
-	
+
 	@GetMapping("/page1")
-	public void page1(PersonDto dto, Model model)	{
+	public void page1(PersonDto dto, Model model) {
 		log.info("GET /param/page1..." + dto);
 		model.addAttribute("dto", dto);
 		model.addAttribute("test", "test_value");
-		
+
 		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
-		
+
 	}
-	
+
 	@GetMapping("/page2")
-	public String page2(PersonDto dto, Model model)	{
+	public String page2(PersonDto dto, Model model) {
 		log.info("GET /param/page2..." + dto);
 		model.addAttribute("dto", dto);
 		model.addAttribute("test", "test_value_2");
 		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
 		return "param/page1";
 	}
-	
+
 	@GetMapping("/page3/{name}/{age}/{addr}")
-	public String page3(PersonDto dto, Model model)	{
+	public String page3(PersonDto dto, Model model) {
 		log.info("GET /param/page3..." + dto);
 		model.addAttribute("dto", dto);
 		model.addAttribute("test", "test_value_3");
 		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
 		return "param/page1";
 	}
-	
+
 	@GetMapping("/page4/{name}/{age}/{addr}")
-	public ModelAndView page4(PersonDto dto, Model model)	{
+	public ModelAndView page4(PersonDto dto, Model model) {
 		log.info("GET /param/page4..." + dto);
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.addObject("dto", dto);
-		modelAndView.addObject("test","test_value_4");
+		modelAndView.addObject("test", "test_value_4");
 		modelAndView.setViewName("param/page1");
 		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
 		return modelAndView;
 	}
-	
-	
-	//Servlet
+
+	// Servlet
 	@GetMapping("/page5")
-	public String page5(HttpServletRequest req , HttpServletResponse resp) {
-		
+	public String page5(HttpServletRequest req, HttpServletResponse resp) {
+
 		log.info("GET /param/page5...");
-		
+
 		String name = req.getParameter("name");
 		String age = req.getParameter("age");
-		log.info(name+ " " + age);
-		PersonDto dto = new PersonDto(name,0,null);
+		log.info(name + " " + age);
+		PersonDto dto = new PersonDto(name, 0, null);
 		req.setAttribute("dto", dto);
-		
+
 		HttpSession session = req.getSession();
 		log.info("session : " + session);
 		return "param/page1";
 	}
-	
-	//Forward
+
+	// Forward
 	@GetMapping("/forward1")
 	public String f1(Model model) {
-		log.info("param/forward1..");
-		model.addAttribute("f1","f1Value");
+		log.info("/param/forward1..");
+		model.addAttribute("f1", "f1Value");
 		return "forward:/param/forward2";
 	}
-	
-	//Forward
+
+	// Forward
 	@GetMapping("/forward2")
 	public String f2(Model model) {
-		log.info("param/forward2..");
-		model.addAttribute("f2","f2Value");
+		log.info("/param/forward2..");
+		model.addAttribute("f2", "f2Value");
 		return "forward:/param/forward3";
 	}
-	
-	//Forward
+
+	// Forward
 	@GetMapping("/forward3")
 	public String f3(Model model) {
-		log.info("param/forward3..");
-		model.addAttribute("f3","f3Value");
-		return "forward:/forward_result";
+		log.info("/param/forward3..");
+		model.addAttribute("f3", "f3Value");
+		return "param/forward_result";
 	}
 	
+	// Redirect
+	@GetMapping("/redirect1")
+	public String r1(Model model, RedirectAttributes redirectAttributes) {
+		log.info("/param/redirect1..");
+		//model.addAttribute("r1", "r1Value"); 			  //쿼리스트링으로 속성전달(파라미터)
+		redirectAttributes.addAttribute("r1", "r1Value"); //쿼리스트링으로 속성전달(파라미터)
+		redirectAttributes.addFlashAttribute("r1_flush","r1_flush_value");//세션에 저장 (1회)
+		return "redirect:/param/redirect2";
+	}
 	
-	//Redirect
+	@GetMapping("/redirect2")
+	public String r2(String r1, @ModelAttribute("r1_flush") String r1_flush,RedirectAttributes redirectAttributes) {
+		log.info("/param/redirect2..r1_flush : " + r1_flush);
+		//model.addAttribute("r1", "r1Value"); 			  //쿼리스트링으로 속성전달(파라미터)
+		redirectAttributes.addAttribute("r1", r1); //쿼리스트링으로 속성전달(파라미터)
+		redirectAttributes.addAttribute("r2", "r2Value"); //쿼리스트링으로 속성전달(파라미터)
+		
+		redirectAttributes.addFlashAttribute("r1_flush",r1_flush);//세션에 저장
+		redirectAttributes.addFlashAttribute("r2_flush","r2_flush_value");//세션에 저장
+		return "redirect:/param/redirect_result";
+	}
 	
-	
-	
-	
-
+	@GetMapping("/redirect_result")
+	public void r_result(String r1 , Model model) {
+		log.info("/param/redirect1..r1 : " + r1);
+		
+	}
 	
 }
