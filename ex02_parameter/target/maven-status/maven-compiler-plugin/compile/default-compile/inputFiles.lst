@@ -1,3 +1,6 @@
-C:\Users\jyhhm\Downloads\새 폴더 (2)\ex01_lombok_DI\src\main\java\com\example\ex01\domain\dto\PersonDto.java
-C:\Users\jyhhm\Downloads\새 폴더 (2)\ex01_lombok_DI\src\main\java\com\example\ex01\controller\HomeController.java
-C:\Users\jyhhm\Downloads\새 폴더 (2)\ex01_lombok_DI\src\main\java\com\example\ex01\controller\SimpleController.java
+C:\Users\jyhhm\git\SPRING-STS3\ex02_parameter\src\main\java\com\example\ex01\controller\ParameterTestController.java
+C:\Users\jyhhm\git\SPRING-STS3\ex02_parameter\src\main\java\com\example\ex01\domain\dto\PersonDto.java
+C:\Users\jyhhm\git\SPRING-STS3\ex02_parameter\src\main\java\com\example\ex01\controller\HomeController.java
+C:\Users\jyhhm\git\SPRING-STS3\ex02_parameter\src\main\java\com\example\ex01\config\PersonDtoBeanConfig.java
+C:\Users\jyhhm\git\SPRING-STS3\ex02_parameter\src\main\java\com\example\ex01\controller\SimpleController.java
+C:\Users\jyhhm\git\SPRING-STS3\ex02_parameter\src\main\java\com\example\ex01\config\PersonComponent.java

@@ -1,11 +1,22 @@
 package com.example.ex01.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.example.ex01.domain.dto.PersonDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,25 +24,147 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/param")
 public class ParameterTestController {
-	@RequestMapping(value="/p01", method=RequestMethod.GET)
-	public void p01(@RequestParam(value="name", required=true) String name) {
+	@RequestMapping(value = "/p01", method = RequestMethod.GET)
+	public void p01(@RequestParam(value = "name", required = true) String name) {
 		log.info("GET /param/p01..." + name);
 	}
-	
+
 	@GetMapping("/p02")
-	public void p02(@RequestParam(value="name", required=true) String name) {
+	public void p02(@RequestParam(value = "name", required = true) String name) {
 		log.info("GET /param/p02..." + name);
 	}
-	
-	@PostMapping("/p03")
-	public void p03(@RequestParam(value="name", required=true) String name) {
+
+	@PostMapping(value = "/p03")
+	public void p03(@RequestParam(value = "name", required = true) String name) {
 		log.info("POST /param/p03..." + name);
 	}
-	
-	@GetMapping("/p03")
-	public void p04(String name) {
-		log.info("GET /param/p03..." + name);
+
+	// @RequestParam : 동기요청 파라미터 처리 / form 기반 전달되는 데이터
+	// @RequestBody : 비동기요청 파라미터 처리 / form / json 등 파라미터 받기
+
+	@PostMapping(value = "/p04")
+	public void p04(@RequestBody String name) {
+		log.info("POST /param/p04..." + name);
+	}
+
+	@RequestMapping(value = "/p05", method = RequestMethod.GET)
+	public void p05(@RequestParam(value = "name", defaultValue = "홍길동") String name) {
+		log.info("POST /param/p05..." + name);
+	}
+
+	@RequestMapping(value = "/p06", method = RequestMethod.GET)
+	public void p06(@RequestParam(value = "name") String name, @RequestParam(value = "age") int age,
+			@RequestParam(value = "addr") String addr) {
+		log.info("GET /param/p06..." + name + " " + age + " " + addr);
+	}
+
+	@RequestMapping(value = "/p07", method = RequestMethod.GET)
+	public void p07(@ModelAttribute PersonDto dto) {
+		log.info("GET /param/p07..." + dto);
+	}
+
+	@RequestMapping(value = "/p08/{name}/{age}/{addr}", method = RequestMethod.GET)
+	public void p08(
+			@PathVariable("name") String name,
+			@PathVariable("age") int age,
+			@PathVariable("addr") String addr
+			) {
+		log.info("GET /param/p08..." + name + " " + age + " " + addr );
 	}
 	
+	@RequestMapping(value = "/p09/{name}/{age}/{addr}", method = RequestMethod.GET)
+	public void p09(@ModelAttribute PersonDto dto) {
+		log.info("GET /param/p09..." + dto);
+	}
+	
+	@GetMapping("/page1")
+	public void page1(PersonDto dto, Model model)	{
+		log.info("GET /param/page1..." + dto);
+		model.addAttribute("dto", dto);
+		model.addAttribute("test", "test_value");
+		
+		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
+		
+	}
+	
+	@GetMapping("/page2")
+	public String page2(PersonDto dto, Model model)	{
+		log.info("GET /param/page2..." + dto);
+		model.addAttribute("dto", dto);
+		model.addAttribute("test", "test_value_2");
+		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
+		return "param/page1";
+	}
+	
+	@GetMapping("/page3/{name}/{age}/{addr}")
+	public String page3(PersonDto dto, Model model)	{
+		log.info("GET /param/page3..." + dto);
+		model.addAttribute("dto", dto);
+		model.addAttribute("test", "test_value_3");
+		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
+		return "param/page1";
+	}
+	
+	@GetMapping("/page4/{name}/{age}/{addr}")
+	public ModelAndView page4(PersonDto dto, Model model)	{
+		log.info("GET /param/page4..." + dto);
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("dto", dto);
+		modelAndView.addObject("test","test_value_4");
+		modelAndView.setViewName("param/page1");
+		// Forwarding : 위치 : /WEB-INF/views/param/page1.jsp
+		return modelAndView;
+	}
+	
+	
+	//Servlet
+	@GetMapping("/page5")
+	public String page5(HttpServletRequest req , HttpServletResponse resp) {
+		
+		log.info("GET /param/page5...");
+		
+		String name = req.getParameter("name");
+		String age = req.getParameter("age");
+		log.info(name+ " " + age);
+		PersonDto dto = new PersonDto(name,0,null);
+		req.setAttribute("dto", dto);
+		
+		HttpSession session = req.getSession();
+		log.info("session : " + session);
+		return "param/page1";
+	}
+	
+	//Forward
+	@GetMapping("/forward1")
+	public String f1(Model model) {
+		log.info("param/forward1..");
+		model.addAttribute("f1","f1Value");
+		return "forward:/param/forward2";
+	}
+	
+	//Forward
+	@GetMapping("/forward2")
+	public String f2(Model model) {
+		log.info("param/forward2..");
+		model.addAttribute("f2","f2Value");
+		return "forward:/param/forward3";
+	}
+	
+	//Forward
+	@GetMapping("/forward3")
+	public String f3(Model model) {
+		log.info("param/forward3..");
+		model.addAttribute("f3","f3Value");
+		return "forward:/forward_result";
+	}
+	
+	
+	//Redirect
+	
+	
+	
+	
+
 	
 }
