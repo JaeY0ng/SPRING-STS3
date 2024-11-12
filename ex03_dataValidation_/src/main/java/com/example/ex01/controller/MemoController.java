@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +31,12 @@ public class MemoController {
 		log.info("POST /memo/post..." + memoDto);
 		//메모추가 핸들러
 		if(bindingResult.hasErrors()) {
-			log.info("데이터 유효성 체크 오류 : " + bindingResult.getFieldError("id").getDefaultMessage());
-			model.addAttribute("id",bindingResult.getFieldError("id").getDefaultMessage());
+//			log.info("데이터 유효성 체크 오류 : " + bindingResult.getFieldError("id").getDefaultMessage());
+//			model.addAttribute("id",bindingResult.getFieldError("id").getDefaultMessage());
+			for( FieldError error : bindingResult.getFieldErrors()) {
+				log.info("Error Field " + error.getField() + " Error Msg : " + error.getDefaultMessage());
+				model.addAttribute(error.getField(),error.getDefaultMessage());
+			}
 		}
 	}
 }

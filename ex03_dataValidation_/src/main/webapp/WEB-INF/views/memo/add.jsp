@@ -14,15 +14,15 @@
 				<input name="id">
 			</div>
 			<div>
-				<label>text : </label>
+				<label>text : </label> <span>${text}</span><br>
 				<input name="text">
 			</div>
 			<div>
-				<label>writer : </label>
+				<label>writer : </label> <span>${writer}</span><br>
 				<input name="writer">
 			</div>
 		 	<div>
-				<label>createAt : </label>
+				<label>createAt : </label> <span>${createAt}</span><br>
 				<input type="datetime-local" name="createAt">
 			</div>
 			
