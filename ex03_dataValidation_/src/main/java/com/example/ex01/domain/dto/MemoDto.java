@@ -3,6 +3,7 @@ package com.example.ex01.domain.dto;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

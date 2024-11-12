@@ -10,7 +10,7 @@
 		<h1>MEMO ADD</h1>
 		<form action="${pageContext.request.contextPath}/memo/add" method="post">
 			<div>
-				<label>id  : </label>
+				<label>id  : </label> <span>${id}</span><br>
 				<input name="id">
 			</div>
 			<div>

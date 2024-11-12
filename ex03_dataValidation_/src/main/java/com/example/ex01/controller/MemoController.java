@@ -3,6 +3,7 @@ package com.example.ex01.controller;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,11 +26,12 @@ public class MemoController {
 	}
 	
 	@PostMapping("/add")
-	public void memo_post(@ModelAttribute @Valid MemoDto memoDto,BindingResult bindingResult) {
+	public void memo_post(@ModelAttribute @Valid MemoDto memoDto,BindingResult bindingResult,Model model) {
 		log.info("POST /memo/post..." + memoDto);
 		//메모추가 핸들러
 		if(bindingResult.hasErrors()) {
 			log.info("데이터 유효성 체크 오류 : " + bindingResult.getFieldError("id").getDefaultMessage());
+			model.addAttribute("id",bindingResult.getFieldError("id").getDefaultMessage());
 		}
 	}
 }
