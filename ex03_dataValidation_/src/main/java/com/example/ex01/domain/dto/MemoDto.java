@@ -1,5 +1,6 @@
 package com.example.ex01.domain.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.Email;
@@ -15,7 +16,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@SuppressWarnings("deprecation")
 @Data
 @AllArgsConstructor
 @Builder
@@ -36,4 +36,8 @@ public class MemoDto {
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm")
 	@NotNull(message="날짜 정보를 선택하세요")
 	private LocalDateTime createAt; // ISSUE
+	
+	@DateTimeFormat
+	@NotNull(message="")
+	private LocalDate dateTest;
 }
