@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,6 +27,15 @@ class MybatisTests {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		Connection conn = sqlSession.getConnection();
 		System.out.println(conn.toString());
+		
 	}
-
+	
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
+	
+	@Test
+	void test_2() {
+		System.out.println(sqlSessionTemplate);
+	}
+	
 }
