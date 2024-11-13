@@ -9,26 +9,31 @@
 <body>
 		<h1>MEMO ADD</h1>
 		<form action="${pageContext.request.contextPath}/memo/add" method="post">
-			<div>
+			
+	<%-- 		<div>
 				<label>id  : </label> <span>${id}</span><br>
 				<input name="id">
-			</div>
+			</div> --%>
+			
 			<div>
 				<label>text : </label> <span>${text}</span><br>
-				<input name="text">
+				<input type= "text-area" name="text">
 			</div>
+			
 			<div>
 				<label>writer : </label> <span>${writer}</span><br>
 				<input name="writer">
 			</div>
-		 	<div>
+			
+		 	<%-- <div>
 				<label>createAt : </label> <span>${createAt}</span><br>
 				<input type="datetime-local" name="createAt">
-			</div>
-		 	<div>
+			</div> --%>
+			
+		 	<!-- <div>
 				<label>dateTest(customFormat) : </label> <span></span><br>
 				<input type="text" name="dateTest" placeHolder="yyyy#MM#dd">
-			</div>
+			</div> -->
 			
 			<div>
 				<input type="submit" value="메모쓰기">

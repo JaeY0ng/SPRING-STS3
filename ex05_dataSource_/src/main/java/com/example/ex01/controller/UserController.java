@@ -41,9 +41,8 @@ public class UserController {
 			LocalDate date = LocalDate.parse(birthday, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			setValue(date);
 		}
-
 	}
-	
+
 	@Slf4j
 	private static class PhoneEditor extends PropertyEditorSupport {
 		@Override
@@ -51,7 +50,7 @@ public class UserController {
 			phone = phone.replaceAll("-", "");
 			setValue(phone);
 		}
-		
+
 	}
 
 	@GetMapping("/join")
