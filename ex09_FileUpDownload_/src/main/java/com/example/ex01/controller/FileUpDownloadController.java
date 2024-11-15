@@ -106,14 +106,19 @@ public class FileUpDownloadController {
 	public ResponseEntity<Resource> downloadFile(String filepath) throws UnsupportedEncodingException {
 		log.info("GET /file/download..." + filepath);
 		
+		//FileSystemResource : 파일시스템의 특정 파일로부터 정보를 가져오는데 사용
 		Resource resource = new FileSystemResource(filepath);
 		
+		//파일명 추출
 		String filename = resource.getFilename();
 		
+		//헤더 정보 추가
 		HttpHeaders headers = new HttpHeaders();
 		
+		//ISO-8859-1 : 라틴어(특수문자 등 깨짐 방지)
 		headers.add("Content-Disposition", "attachment; filename=" + new String(filename.getBytes("UTF-8"),"ISO-8859-1"));
 		
+		// 리소스, 파일정보가 포함된 헤더, 상태정보를 전달
 		return new ResponseEntity<Resource>(resource,headers,HttpStatus.OK);
 	}
 	
