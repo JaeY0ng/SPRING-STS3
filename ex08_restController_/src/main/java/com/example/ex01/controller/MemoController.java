@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ex01.domain.dto.MemoDto;
 import com.example.ex01.domain.service.MemoServiceImpl;
@@ -92,6 +93,10 @@ public class MemoController {
 		log.info("GET /memo/rest...");
 	}
 	
-	
+	@GetMapping("/restTest")
+	public @ResponseBody String restTest() {
+		log.info("GET /memo/restTest...");
+		return "TEST";
+	}
 
 }
