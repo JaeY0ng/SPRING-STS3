@@ -4,6 +4,7 @@ C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\controller\UserController.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\controller\SimpleController.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\controller\ExceptionTestController.java
+C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\controller\FileUpDownloadController.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\config\MybatisConfig.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\config\PersonComponent.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\restController\SimpleRestController.java
@@ -18,4 +19,5 @@ C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\config\WebMvcConfig.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\restController\MemoRestController.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\domain\dto\UserDto.java
+C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\domain\dto\FileDto.java
 C:\Users\jyhhm\git\SPRING-STS3\ex09_FileUpDownload_\src\main\java\com\example\ex01\controller\ParameterTestController.java

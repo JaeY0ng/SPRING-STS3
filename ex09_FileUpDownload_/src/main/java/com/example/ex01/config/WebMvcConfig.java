@@ -14,41 +14,32 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScans({
-	@ComponentScan("com.example.ex01.controller"),
-	@ComponentScan("com.example.ex01.restController"),
-})
+@ComponentScans({ @ComponentScan("com.example.ex01.controller"), @ComponentScan("com.example.ex01.restController"), })
 public class WebMvcConfig implements WebMvcConfigurer {
-	
-	//MULTIPARTCONFIG
-	
+
+	// MULTIPARTCONFIG
 	@Bean
-	public MultipartResolver multipartResovler() {
-		CommonsMultipartResolver multipartResovler = new CommonsMultipartResolver();
-		multipartResovler.setMaxUploadSize(1024*1024*10*2);				//20MB // 전체 업로드 허용 사이즈
-		multipartResovler.setMaxUploadSizePerFile(1024*1024*10*2);		//20MB // 파일 1개당 허용가능한 업로드
-		multipartResovler.setMaxInMemorySize(1024*1024*10*2);			// 		// 캐시 공간
-		
-		return multipartResovler;
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(1024 * 1024 * 10 * 2); // 20MB //전체 업로드 허용 사이즈
+		multipartResolver.setMaxUploadSizePerFile(1024 * 1024 * 10 * 2); // 20MB //파일 1개당 허용가능한 업로드 사이즈
+		multipartResolver.setMaxInMemorySize(1024 * 1024 * 10 * 2); // //캐시 공간
+		return multipartResolver;
 	}
-	
-	
-	
-	//VIEW RESOLVER
+
+	// VIEW RESOLVER
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		
 		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
-		
 		return viewResolver;
 	}
-	
+
+	// STATIC RESOURCE
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// TODO Auto-generated method stub
-		WebMvcConfigurer.super.addResourceHandlers(registry);
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
-	
+
 }
