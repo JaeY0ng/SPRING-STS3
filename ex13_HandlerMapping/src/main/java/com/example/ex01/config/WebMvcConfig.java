@@ -122,6 +122,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		//요청 매핑정보, 핸들러, 메서드 등록
 		handlerMapping.registerMapping(mappingInfo, new CustomHandler(), method);
 		return handlerMapping;
+		
 	}
 	
 }
