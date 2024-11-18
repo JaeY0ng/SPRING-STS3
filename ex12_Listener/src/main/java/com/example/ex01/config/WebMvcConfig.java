@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.example.ex01.interceptor.MemoInterceptor;
 import com.example.ex01.listener.CustomContextRefreshedListener;
+import com.example.ex01.listener.MemoAddEventListener;
 import com.example.ex01.listener.RequestHandledEventListener;
 
 @Configuration
@@ -63,5 +64,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public CustomContextRefreshedListener customContextRefreshedListener()  {
 		return new CustomContextRefreshedListener();
 	}
+	
+	@Bean
+	public MemoAddEventListener memoAddEventListener() {
+		return new MemoAddEventListener();
+	}
+	
 	
 }
