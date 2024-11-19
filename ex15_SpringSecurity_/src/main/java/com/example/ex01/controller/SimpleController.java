@@ -1,29 +1,58 @@
 package com.example.ex01.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import lombok.extern.java.Log;
+import com.example.ex01.domain.dto.UserDto;
+import com.example.ex01.domain.service.UserServiceImpl;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-@RequestMapping("/test")
 public class SimpleController {
 	
+	@Autowired
+	private UserServiceImpl userServiceImpl;
 	
-	@RequestMapping(value="/t1",method=RequestMethod.GET)
-	public void t1() {
-		log.info("GET /t1...");
+	
+	@GetMapping("/user")
+	public void user() {
+		log.info("GET /user...");
 	}
-	@RequestMapping(value="/t2",method=RequestMethod.POST)
-	public void t2() {
-		log.info("GET /t2...");
+
+	
+	@GetMapping("/member")
+	public void member() {
+		log.info("GET /user...");
 	}
-	@RequestMapping(value="/t3",method= {RequestMethod.GET,RequestMethod.POST})
-	public void t3() {
-		log.info("GET /t3...");
+
+	
+	@GetMapping("/admin")
+	public void admin() {
+		log.info("GET /user...");
+	}
+	
+	
+	@GetMapping("/login")
+	public void login() {
+		log.info("GET /login...");
+	}
+	
+	
+	@GetMapping("/join")
+	public void join() {
+		log.info("GET /join...");
+	}
+
+	
+	@PostMapping("/join")
+	public String join_post(UserDto userDto) {
+		log.info("POST /join...");
+		userServiceImpl.memberJoin(userDto);
+		return "redirect:/login";
 	}
 	
 }

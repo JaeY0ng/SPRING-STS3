@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.example.ex01.config.PersonComponent;
 import com.example.ex01.domain.dto.PersonDto;
 
 
@@ -30,7 +30,7 @@ class DiTests {
 	PersonDto personBean;
 	
 	@Autowired
-	PersonComponent personComponent;
+	Component personComponent;
 	
 	@Test
 	void Di_test1() {
