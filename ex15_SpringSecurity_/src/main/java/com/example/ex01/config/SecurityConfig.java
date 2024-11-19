@@ -10,10 +10,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.ex01.config.auth.PrincipalDetailsServiceImpl;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private PrincipalDetailsServiceImpl principalDetailsServiceImpl;
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -44,17 +53,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 	}
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
+	
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder.encode("1234")).roles("USER");
+//		auth.inMemoryAuthentication().withUser("user").password(passwordEncoder.encode("1234")).roles("USER");
+//		
+//		auth.inMemoryAuthentication().withUser("member").password(passwordEncoder.encode("1234")).roles("MEMBER");
+//		
+//		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("1234")).roles("ADMIN");
 		
-		auth.inMemoryAuthentication().withUser("member").password(passwordEncoder.encode("1234")).roles("MEMBER");
+		auth.userDetailsService(principalDetailsServiceImpl).passwordEncoder(passwordEncoder);
 		
-		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder.encode("1234")).roles("ADMIN");
-
 	}
 	
 	@Bean
