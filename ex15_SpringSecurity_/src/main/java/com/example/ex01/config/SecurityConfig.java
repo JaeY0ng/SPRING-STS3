@@ -45,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll();
 		
 		//예외처리
-		
+		http.exceptionHandling()
+			.authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // 미인증 사용자 예외처리
+			.accessDeniedHandler(new CustomAccessDeniedHandler());			// 권한 실패(부족) 시 예외처리
 		
 		//REMEMBER_ME
 		

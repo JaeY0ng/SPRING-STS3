@@ -24,5 +24,6 @@
 		</div>
 		<input type="hidden" name="_csrf" value="${_csrf.token}" />
 	</form>
+	${message}
 </body>
 </html>
